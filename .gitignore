@@ -1,1 +1,30 @@
+# data
+data/raw/
+data/processed/
 
+# python
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+
+# jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# models
+models/
+*.pkl
+*.joblib
+*.pt
+
+# os
+.DS_Store
+Thumbs.db
+
+# ide
+.vscode/
+.idea/
