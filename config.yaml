@@ -1,1 +1,26 @@
+data:
+  raw_train: data/raw/adult_train.csv
+  raw_test: data/raw/adult_test.csv
+  processed_train: data/processed/train.csv
+  processed_test: data/processed/test.csv
 
+target:
+  column: income
+  positive_class: ">50K"
+
+protected_attributes:
+  - sex
+  - race
+  - age
+  - marital-status
+  - native-country
+
+model:
+  random_state: 42
+  test_size: 0.2
+  cv_folds: 5
+
+paths:
+  models: models/
+  reports: reports/
+  figures: reports/figures/
