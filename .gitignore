@@ -10,6 +10,9 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+venv/
+env/
+.venv/
 
 # jupyter
 .ipynb_checkpoints/
@@ -28,3 +31,10 @@ Thumbs.db
 # ide
 .vscode/
 .idea/
+
+# security
+SECURITY_AUDIT_REPORT.md
+SECRET_SCAN_REPORT.md
+reports/SECRET_SCAN_REPORT.md
+*_AUDIT_REPORT.md
+*_SECRET_*.md

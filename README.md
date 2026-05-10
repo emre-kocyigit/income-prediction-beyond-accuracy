@@ -31,33 +31,45 @@ pytest
 
 ## Repository structure
 
+```
 ├── data/
-│   ├── raw/                  ← original dataset, never modified
-│   ├── processed/            ← cleaned and engineered features
-│   └── data_card.md         ← dataset documentation and known limitations
+│   ├── raw/                           ✓ adult.data, adult.test, adult.names
+│   ├── processed/                     ✓ train.csv, test.csv
+│   └── data_card.md                   ✓ dataset documentation and known limitations
 │
 ├── notebooks/
-│   ├── 01_data_audit.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_feature_engineering.ipynb
-│   ├── 04_modeling.ipynb
-│   ├── 05_evaluation.ipynb
-│   └── 06_fairness_analysis.ipynb
+│   ├── 01_data_audit.ipynb            ✓ completed
+│   ├── 02_eda.ipynb                   ✓ completed
+│   ├── 03_feature_engineering.ipynb   ✓ completed
+│   ├── 04_modeling.ipynb              ✓ completed
+│   ├── 05_evaluation.ipynb            ⏳ planned
+│   └── 06_fairness_analysis.ipynb     ⏳ planned
 │
 ├── src/
-│   ├── data/                 ← loading and preprocessing modules
-│   ├── models/               ← baseline and tree model modules
-│   └── evaluation/           ← metrics and fairness modules
+│   ├── data/                          ⏳ preprocessing modules (placeholder)
+│   ├── models/                        ⏳ baseline and tree models (placeholder)
+│   └── evaluation/                    ⏳ metrics and fairness modules (placeholder)
 │
-├── app/                      ← FastAPI inference endpoint
-├── tests/                    ← unit tests
+├── app/
+│   └── main.py                        ⏳ FastAPI inference endpoint (placeholder)
+│
+├── tests/
+│   └── test_data.py                   ⏳ unit tests (placeholder)
+│
 ├── reports/
-│   ├── findings.md           ← written conclusions
-│   └── figures/              ← saved plots
+│   ├── findings.md                    ✓ written conclusions
+│   └── SECRET_SCAN_REPORT.md          ✓ security audit results
 │
-├── config.yaml
-├── Makefile
-└── requirements.txt
+├── config.yaml                        ✓ project configuration
+├── Makefile                           ✓ automation commands
+├── requirements.txt                   ✓ dependency specifications
+├── SECURITY_AUDIT_REPORT.md           ✓ comprehensive security analysis
+└── LICENSE
+```
+
+**Legend:**  
+✓ = Complete with content  
+⏳ = Structure exists, implementation pending
 
 ## How to run
 
