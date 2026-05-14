@@ -42,8 +42,8 @@ pytest
 │   ├── 02_eda.ipynb                   ✓ completed
 │   ├── 03_feature_engineering.ipynb   ✓ completed
 │   ├── 04_modeling.ipynb              ✓ completed
-│   ├── 05_evaluation.ipynb            ⏳ planned
-│   └── 06_fairness_analysis.ipynb     ⏳ planned
+│   ├── 05_evaluation.ipynb            ✓ completed
+│   └── 06_fairness_analysis.ipynb     ✓ completed
 │
 ├── src/
 │   ├── data/                          ⏳ preprocessing modules (placeholder)
