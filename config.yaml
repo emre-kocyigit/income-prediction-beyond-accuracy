@@ -1,6 +1,6 @@
 data:
-  raw_train: data/raw/adult_train.csv
-  raw_test: data/raw/adult_test.csv
+  raw_train: data/raw/adult.data
+  raw_test: data/raw/adult.test
   processed_train: data/processed/train.csv
   processed_test: data/processed/test.csv
 
@@ -24,3 +24,6 @@ paths:
   models: models/
   reports: reports/
   figures: reports/figures/
+
+deployment:
+  model: xgboost

@@ -1,13 +1,16 @@
-.PHONY: install test serve clean
+.PHONY: install train test serve clean
 
 install:
 	pip install -r requirements.txt
 
+train:
+	PYTHONPATH=. python scripts/train_and_save_models.py
+
 test:
-	pytest tests/ -v
+	PYTHONPATH=. pytest tests/ -v
 
 serve:
-	uvicorn app.main:app --reload --port 8000
+	PYTHONPATH=. uvicorn app.main:app --reload --port 8000
 
 clean:
 	find . -type f -name "*.pyc" -delete

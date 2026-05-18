@@ -3,109 +3,81 @@
 Binary income classification is a solved problem on paper.
 The harder question is whether the model makes errors uniformly or systematically disadvantages certain groups. This project treats that question as seriously as prediction accuracy.
 
+**Completion tracker:** see [STATUS.md](STATUS.md) (status → changes → test → result for each step).
+
 ## What this project covers
 
 - **Data audit** before any modeling — missing patterns, leakage risks, and class imbalance
-- **Exploratory analysis** with a focus on subgroup distributions,
-  not just overall statistics
-- **Four modeling approaches** with justified selection — Logistic Regression, Random Forest, XGBoost/LightGBM, and a PyTorch neural network
-- **Deep evaluation** — calibration curves, confidence intervals,
-  statistical significance testing between models
-- **Fairness analysis** across all protected attributes: sex, race, age, marital status, and native country
-- **Explainability** — global and local SHAP values, counterfactual examples, and error analysis by subgroup
-- **FastAPI endpoint** for real-time inference with responsible deployment considerations
+- **Exploratory analysis** with a focus on subgroup distributions, not just overall statistics
+- **Modeling** — Logistic Regression, Random Forest, XGBoost, LightGBM (with optional Fairlearn mitigation in notebook 04)
+- **Deep evaluation** — calibration, bootstrap CIs, significance tests, subgroup metrics
+- **Fairness analysis** across protected attributes: sex, race, age, marital status, native country
+- **Explainability** — SHAP and error analysis by subgroup *(in progress; see STATUS.md)*
+- **FastAPI endpoint** for demo inference with input validation *(see `app/main.py`)*
 
 ## Key findings
 
-*To be updated as analysis progresses.*
+*To be updated after notebooks 05–06 are run and `reports/findings.md` is filled.*
 
 ## Stack
 
-Python 3.10+
-pandas · numpy · scikit-learn
-xgboost · lightgbm
-pytorch
-shap · fairlearn
-fastapi · uvicorn · pydantic
-pytest
+Python 3.10+ · pandas · numpy · scikit-learn · xgboost · lightgbm · fairlearn · shap · fastapi · pytest
 
 ## Repository structure
 
 ```
 ├── data/
 │   ├── raw/                           ✓ adult.data, adult.test, adult.names
-│   ├── processed/                     ✓ train.csv, test.csv
-│   └── data_card.md                   ✓ dataset documentation and known limitations
+│   ├── processed/                     ✓ train.csv, test.csv (generated; gitignored)
+│   └── data_card.md                   ✓ dataset documentation
 │
 ├── notebooks/
-│   ├── 01_data_audit.ipynb            ✓ completed
-│   ├── 02_eda.ipynb                   ✓ completed
-│   ├── 03_feature_engineering.ipynb   ✓ completed
-│   ├── 04_modeling.ipynb              ✓ completed
-│   ├── 05_evaluation.ipynb            ✓ completed
-│   └── 06_fairness_analysis.ipynb     ✓ completed
+│   ├── 01_data_audit.ipynb            ✓
+│   ├── 02_eda.ipynb                   ✓
+│   ├── 03_feature_engineering.ipynb   ✓
+│   ├── 04_modeling.ipynb              ✓
+│   ├── 05_evaluation.ipynb            ✓ (run after `make train`)
+│   └── 06_fairness_analysis.ipynb     ✓ (run after `make train`)
+│
+├── scripts/
+│   └── train_and_save_models.py       ✓ reproducible training → models/*.pkl
 │
 ├── src/
-│   ├── data/                          ⏳ preprocessing modules (placeholder)
-│   ├── models/                        ⏳ baseline and tree models (placeholder)
-│   └── evaluation/                    ⏳ metrics and fairness modules (placeholder)
+│   ├── data/schema.py                 ✓ feature contract + loaders
+│   └── models/loader.py               ✓ joblib load helpers
 │
 ├── app/
-│   └── main.py                        ⏳ FastAPI inference endpoint (placeholder)
+│   └── main.py                        ✓ FastAPI /health, /predict
 │
-├── tests/
-│   └── test_data.py                   ⏳ unit tests (placeholder)
+├── tests/                             ✓ schema, model, API smoke tests
 │
 ├── reports/
-│   ├── findings.md                    ✓ written conclusions
-│   └── SECRET_SCAN_REPORT.md          ✓ security audit results
+│   ├── findings.md                    ⏳ synthesis (pending)
+│   └── figures/                       ✓ EDA + notebook outputs
 │
-├── config.yaml                        ✓ project configuration
-├── Makefile                           ✓ automation commands
-├── requirements.txt                   ✓ dependency specifications
-├── SECURITY_AUDIT_REPORT.md           ✓ comprehensive security analysis
-└── LICENSE
+├── STATUS.md                          ✓ step-by-step completion log
+├── config.yaml                        ✓ paths, protected attributes, deployment model
+├── Makefile                           ✓ install, train, test, serve
+└── requirements.txt
 ```
-
-**Legend:**  
-✓ = Complete with content  
-⏳ = Structure exists, implementation pending
 
 ## How to run
 
-**Install dependencies**
 ```bash
 make install
+make train          # writes models/*.pkl (gitignored — required for 05, 06, API)
+make test           # schema + optional model/API tests
+make serve          # http://127.0.0.1:8000/docs
 ```
 
-**Run tests**
-```bash
-make test
-```
-
-**Start the API**
-```bash
-make serve
-```
-
-**Run notebooks**
-
-Open in order — each notebook builds on the previous one.
-Start with `01_data_audit.ipynb`.
+**Notebooks:** open in order starting with `01_data_audit.ipynb`. Run `03` before `make train` if processed CSVs are missing.
 
 ## Dataset
 
-Adult Income Dataset — UCI ML Repository, extracted from the
-1994 US Census by Barry Becker. See `data/data_card.md` for
-full documentation, known limitations, and ethical considerations.
+Adult Income Dataset (UCI, 1994 Census extract). See `data/data_card.md` for limitations and ethical considerations.
 
 ## Limitations and caveats
 
-This project is a fairness audit and learning exercise, not a
-production system. The dataset is from 1994 and reflects social
-and economic conditions that have changed significantly. The
-$50K income threshold is not inflation-adjusted. Models trained
-here should not be used for real financial or employment decisions.
+Fairness audit and learning exercise — not for real financial or employment decisions. Data is from 1994; the $50K threshold is not inflation-adjusted.
 
-The goal is not to build the most accurate classifier. It is to
-understand where and why a model fails — and for whom.
+The goal is not the most accurate classifier. It is to understand **where and why** a model fails — and **for whom**.

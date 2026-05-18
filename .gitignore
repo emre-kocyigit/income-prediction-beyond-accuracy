@@ -18,8 +18,8 @@ env/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# models
-models/
+# trained artifacts (repo root only — not src/models/)
+/models/
 *.pkl
 *.joblib
 *.pt
